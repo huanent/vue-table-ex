@@ -17,8 +17,6 @@
 </template>
 
 <script>
-import TdEx from "./TdEx";
-import TrEx from "./TrEx";
 export default {
   data() {
     return {
@@ -41,10 +39,6 @@ export default {
         name: null
       }
     };
-  },
-  components: {
-    TdEx,
-    TrEx
   }
 };
 </script>

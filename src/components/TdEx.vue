@@ -20,7 +20,7 @@ export default {
   },
   props: {
     bindValue: {
-      required: true
+      default: ""
     },
     list: Array,
     display: String,
@@ -43,7 +43,9 @@ export default {
       this.$nextTick(() => this.$refs.input.focus());
     },
     focus(e) {
-      this.$nextTick(() => e.target.select());
+      this.$nextTick(() => {
+        e.target.select();
+      });
     },
     setFocus() {
       this.$refs.input.focus();
@@ -121,7 +123,6 @@ export default {
         default:
           break;
       }
-      this.$emit("keydown", e);
     },
     arrowDownKeydown() {
       if (this.searchList.length == 0) return;
@@ -160,6 +161,7 @@ export default {
       items[index + 1].setFocus();
     },
     scrollIntoView() {
+      if (!this.list) return;
       this.$nextTick(() => {
         let item = document.getElementsByClassName("selected").item(0);
         if (item) {
@@ -244,6 +246,7 @@ td {
   outline: 1px solid #ddd;
   overflow-y: auto;
   max-height: 180px;
+  z-index: 1000;
 }
 .td-ex ul li {
   height: 32px;
