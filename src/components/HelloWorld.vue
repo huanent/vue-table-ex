@@ -1,18 +1,24 @@
 <template>
   <div>
-    <table>
-      <tr-ex>
-        <td-ex v-model="jsonData.name" :list="list" display="name" take='age' edit></td-ex>
-        <td-ex v-model="jsonData.name"></td-ex>
-        <td-ex v-model="jsonData.name" edit></td-ex>
-      </tr-ex>
-      <tr-ex>
-        <td-ex v-model="jsonData.name" :list="list" display="name" take='age' edit></td-ex>
-        <td-ex v-model="jsonData.name"></td-ex>
-        <td-ex v-model="jsonData.name" edit></td-ex>
-      </tr-ex>
-    </table>
-
+    <table-ex class="table">
+      <thead-ex>
+        <th-ex>列一</th-ex>
+        <th-ex>列二</th-ex>
+        <th-ex>列三</th-ex>
+      </thead-ex>
+      <tbody-ex>
+        <tr-ex>
+          <td-ex v-model="jsonData.name" :list="list" display="name" take='age' edit></td-ex>
+          <td-ex v-model="jsonData.name"></td-ex>
+          <td-ex v-model="jsonData.name" edit></td-ex>
+        </tr-ex>
+        <tr-ex>
+          <td-ex v-model="jsonData.name" :list="list" display="name" take='age' edit></td-ex>
+          <td-ex v-model="jsonData.name"></td-ex>
+          <td-ex v-model="jsonData.name" edit></td-ex>
+        </tr-ex>
+      </tbody-ex>
+    </table-ex>
   </div>
 </template>
 
@@ -44,10 +50,7 @@ export default {
 </script>
 
 <style>
-html {
-  background: #09c;
-}
-.td-ex {
+.table {
   margin: 0 auto;
   margin-top: 5%;
 }

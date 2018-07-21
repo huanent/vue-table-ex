@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import "../common/scrollIntoViewIfNeeded.js";
+import "./scrollIntoViewIfNeeded.js";
 export default {
   name: "TdEx",
   model: {
