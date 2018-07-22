@@ -1,13 +1,13 @@
 <template>
   <div>
-    <table-ex class="table" auto-focus showIndex>
+    <table-ex class="table" auto-focus :enable='tableEnable'>
       <thead-ex>
         <th-ex>姓名</th-ex>
         <th-ex>年龄</th-ex>
         <th-ex>爱好</th-ex>
       </thead-ex>
-      <tbody-ex>
-        <tr-ex v-for="(item,index) in jsonData" :key="index">
+      <tbody-ex @valid-change="tableValid=$event">
+        <tr-ex v-for="(item,index) in jsonData" :key="index" :valid="rowValid(item)" valid-tip>
           <td-ex v-model="item.id" :list="list" display="name" take='id' edit @change="onChange(item,$event)"></td-ex>
           <td-ex v-model="item.age"></td-ex>
           <td-ex v-model="item.like" edit></td-ex>
@@ -39,7 +39,9 @@ export default {
         { id: null, age: null, like: null },
         { id: null, age: null, like: null },
         { id: null, age: null, like: null }
-      ]
+      ],
+      tableEnable: true,
+      tableValid: false
     };
   },
   methods: {
@@ -49,6 +51,9 @@ export default {
         return;
       }
       row.age = e.age;
+    },
+    rowValid(row) {
+      return row.id != null && row.like != null && row.like != "";
     }
   },
   computed: {

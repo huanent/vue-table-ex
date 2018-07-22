@@ -12,14 +12,16 @@ export default {
   },
   props: {
     autoFocus: Boolean,
-    showIndex: Boolean
+    showIndex: {
+      type: Boolean,
+      default: true
+    },
+    enable: Boolean
   },
   mounted() {
     if (this.autoFocus) this.doAutoFocus();
-    if (this.showIndex) this.doShowIndex();
-  },
-  updated() {
-    if (this.showIndex) this.doShowIndex();
+    let tbody = this.$children.find(f => f.$el.className == "tbody-ex");
+    // if (tbody) tbody.$children.forEach(item => );
   },
   methods: {
     doAutoFocus() {
@@ -27,16 +29,6 @@ export default {
       if (tbody && tbody.$children[0] && tbody.$children[0].$children[0]) {
         tbody.$children[0].$children[0].setFocus();
       }
-    },
-    doShowIndex() {
-      let thead = this.$children.find(f => f.$el.className == "thead-ex");
-      if (thead) thead.showIndex = true;
-      let tbody = this.$children.find(f => f.$el.className == "tbody-ex");
-      if (tbody)
-        tbody.$children.forEach((item, index) => {
-          item.showIndex = true;
-          item.indexValue = index + 1;
-        });
     }
   }
 };

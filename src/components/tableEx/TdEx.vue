@@ -1,7 +1,7 @@
 <template>
   <td class="td-ex">
-    <input ref="input" v-model="value" @keydown="keydown" @focus="focus" @blur="blur" @input="input" :readonly='!edit' />
-    <div class="drawdown-icon" v-if="showDrawdown" @mousedown="drawdownClick">
+    <input ref="input" v-model="value" @keydown="keydown" @focus="focus" @blur="blur" @input="input" :readonly='!edit||!enable' />
+    <div class="drawdown-icon" v-if="enable&&showDrawdown" @mousedown="drawdownClick">
       <i />
     </div>
     <ul v-if="showList">
@@ -34,8 +34,12 @@ export default {
       showDrawdown: this.$props.list,
       value: "",
       selectedItem: null,
-      readonly: true
+      readonly: true,
+      enable: false
     };
+  },
+  mounted() {
+    this.$watch(vm => vm.$parent.enable, value => (this.enable = value));
   },
   methods: {
     drawdownClick() {
@@ -86,6 +90,7 @@ export default {
       });
     },
     keydown(e) {
+      if (!this.enable) return;
       switch (e.keyCode) {
         case 13: //回车
           if (!this.list) return;
