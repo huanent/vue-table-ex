@@ -1,4 +1,4 @@
-td {
+.table-ex td {
     position: relative;
     outline: 1px solid #ddd;
     padding: 0 0;
@@ -87,4 +87,9 @@ td {
 
 .tfoot-ex td {
     text-align: center
+}
+
+.order-col {
+    text-align: center;
+    min-width: 70px;
 }

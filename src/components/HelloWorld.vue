@@ -1,6 +1,6 @@
 <template>
   <div>
-    <table-ex class="table">
+    <table-ex class="table" auto-focus showIndex>
       <thead-ex>
         <th-ex>姓名</th-ex>
         <th-ex>年龄</th-ex>
@@ -15,6 +15,7 @@
       </tbody-ex>
       <tfoot-ex>
         <td>合计</td>
+        <td></td>
         <td>{{totalAge}}</td>
       </tfoot-ex>
     </table-ex>

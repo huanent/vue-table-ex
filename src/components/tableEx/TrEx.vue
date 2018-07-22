@@ -1,21 +1,28 @@
 <template>
   <tr class="tr-ex">
+    <td v-if="showIndex" class="order-col">{{indexValue}}</td>
     <slot></slot>
   </tr>
 </template>
 
 <script>
 export default {
-  name: "TdEx",
+  name: "TrEx",
   data() {
     return {
-      msg: "序号"
+      showIndex: false,
+      indexValue: ""
     };
   },
   mounted() {
     this.$children.forEach(item =>
       item.$on("selected", this.$emit("selected"))
     );
+  },
+  methods: {
+    setShowIndex(value) {
+      this.showIndex = value;
+    }
   }
 };
 </script>
