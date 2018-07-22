@@ -59,6 +59,7 @@ export default {
       if (!item) {
         this.value = "";
         this.$emit("update:bindValue", null);
+        this.$nextTick(() => this.$emit("change", null));
       }
     },
     displayValue(item) {
@@ -73,11 +74,15 @@ export default {
       this.$emit("update:bindValue", this.takeValue(item));
       this.value = this.displayValue(item);
       this.selectedItem = item;
+      this.$nextTick(() => this.$emit("change", this.selectedItem));
     },
     input() {
-      if (!this.list) return;
       this.$nextTick(() => {
-        this.showList = this.searchList.length != 0;
+        if (this.list) {
+          this.showList = this.searchList.length != 0;
+        } else if (this.edit) {
+          this.$emit("update:bindValue", this.value);
+        }
       });
     },
     keydown(e) {
@@ -86,6 +91,7 @@ export default {
           if (!this.list) return;
           this.$emit("update:bindValue", this.takeValue(this.selectedItem));
           this.value = this.displayValue(this.selectedItem);
+          this.$nextTick(() => this.$emit("change", this.selectedItem));
           this.showList = false;
           break;
         case 40: //下
@@ -138,12 +144,8 @@ export default {
     },
     arrowUpKeydown() {
       if (this.searchList.length == 0) return;
+      if (!this.showList) return;
       let index = this.searchList.indexOf(this.selectedItem);
-      if (!this.showList) {
-        this.showList = true;
-        if (index == -1) this.selectedItem = this.searchList[0];
-        return;
-      }
       if (index == 0) index = this.searchList.length - 1;
       else index -= 1;
       this.selectedItem = this.searchList[index];
@@ -191,75 +193,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-td {
-  position: relative;
-  outline: 1px solid #ddd;
-  padding: 0 0;
-  margin: 0;
-  height: 32px;
-  background-color: white;
-}
-.td-ex input {
-  display: block;
-  border: 0;
-  margin: 0;
-  padding: 0 10px;
-  width: auto;
-  height: 100%;
-  outline: 0;
-}
-
-.td-ex input:focus {
-  background-color: rgb(255, 255, 234);
-}
-
-.drawdown-icon {
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 100%;
-  width: 32px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.drawdown-icon i {
-  width: 10px;
-  height: 10px;
-  display: block;
-  border-left: 1px #ccc solid;
-  border-bottom: 1px #ccc solid;
-  transform: rotate(-45deg);
-  margin-bottom: 5px;
-}
-
-.td-ex ul {
-  list-style-type: none;
-  position: absolute;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  background-color: #fff;
-  outline: 1px solid #ddd;
-  overflow-y: auto;
-  max-height: 180px;
-  z-index: 1000;
-}
-.td-ex ul li {
-  height: 32px;
-  padding: 0 10px;
-  margin: 0;
-  line-height: 32px;
-  cursor: pointer;
-}
-.td-ex ul li:hover {
-  background-color: #ddd;
-}
-.td-ex ul li.selected {
-  background-color: #09c;
-  color: #fff;
-}
-</style>

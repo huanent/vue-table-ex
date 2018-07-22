@@ -4,6 +4,7 @@ import TbodyEx from './TbodyEx.vue'
 import TheadEx from './TheadEx.vue'
 import ThEx from './ThEx.vue'
 import TableEx from './TableEx.vue'
+import TfootEx from './TfootEx.vue'
 
 export default {
     install(Vue) {
@@ -13,5 +14,6 @@ export default {
         Vue.component('thead-ex', TheadEx)
         Vue.component('th-ex', ThEx)
         Vue.component('table-ex', TableEx)
+        Vue.component('tfoot-ex', TfootEx)
     }
 }
