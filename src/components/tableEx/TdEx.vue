@@ -40,6 +40,14 @@ export default {
   },
   mounted() {
     this.$watch(vm => vm.$parent.enable, value => (this.enable = value));
+    if (!this.list) {
+      this.value = this.bindValue;
+    } else {
+      let selectedItem = this.list.find(
+        f => this.takeValue(f) == this.bindValue
+      );
+      if (selectedItem) this.itemClick(selectedItem);
+    }
   },
   methods: {
     drawdownClick() {
@@ -67,10 +75,12 @@ export default {
       }
     },
     displayValue(item) {
+      if (!this.list) return item;
       if (this.display) return item[this.display];
       else return item;
     },
     takeValue(item) {
+      if (!this.list) return item;
       if (this.take) return item[this.take];
       else return item;
     },
