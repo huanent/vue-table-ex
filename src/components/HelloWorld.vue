@@ -35,7 +35,7 @@ export default {
         { name: "王刚", id: 6, age: 27 }
       ],
       jsonData: [
-        { id: null, age: null, like: null },
+        { id: 1, age: 23, like: "打球" },
         { id: null, age: null, like: null },
         { id: null, age: null, like: null },
         { id: null, age: null, like: null }
