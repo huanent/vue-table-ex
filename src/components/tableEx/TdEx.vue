@@ -119,7 +119,8 @@ export default {
             var rows = this.$parent.$parent.$children;
             var rowIndex = rows.indexOf(this.$parent);
             if (rowIndex == rows.length - 1) return;
-            rows[rowIndex + 1].$children[index].setFocus();
+            if (rows[rowIndex + 1].enable)
+              rows[rowIndex + 1].$children[index].setFocus();
           }
           break;
         case 38: //上
@@ -132,7 +133,8 @@ export default {
             var rows = this.$parent.$parent.$children;
             var rowIndex = rows.indexOf(this.$parent);
             if (rowIndex == 0) return;
-            rows[rowIndex - 1].$children[index].setFocus();
+            if (rows[rowIndex - 1].enable)
+              rows[rowIndex - 1].$children[index].setFocus();
           }
           break;
         case 37: //左
