@@ -6,7 +6,7 @@
         <th-ex>年龄</th-ex>
         <th-ex>爱好</th-ex>
       </thead-ex>
-      <tbody-ex @valid-change="tableValid=$event">
+      <tbody-ex>
         <tr-ex v-for="(item,index) in jsonData" :key="index" :valid="rowValid(item)" valid-tip>
           <td-ex v-model="item.id" :list="list" display="name" take='id' edit @change="onChange(item,$event)"></td-ex>
           <td-ex v-model="item.age"></td-ex>
@@ -17,8 +17,12 @@
         <td>合计</td>
         <td></td>
         <td>{{totalAge}}</td>
+        <td></td>
       </tfoot-ex>
     </table-ex>
+    <div class="ctl-btn">
+      <button @click="tableEnable=!tableEnable">切换表格禁用状态</button>
+    </div>
   </div>
 </template>
 
@@ -40,8 +44,7 @@ export default {
         { id: null, age: null, like: null },
         { id: null, age: null, like: null }
       ],
-      tableEnable: true,
-      tableValid: false
+      tableEnable: true
     };
   },
   methods: {
@@ -70,5 +73,10 @@ export default {
 .table {
   margin: 0 auto;
   margin-top: 5%;
+}
+.ctl-btn {
+  margin: 0 auto;
+  width: 600px;
+  margin-top: 50px;
 }
 </style>
