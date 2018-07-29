@@ -1,6 +1,6 @@
 <template>
   <div>
-    <table-ex class="table" auto-focus :enable='tableEnable'>
+    <table-ex class="table" auto-focus :enable='tableEnable' :show-index="showIndex">
       <thead-ex>
         <th-ex>姓名</th-ex>
         <th-ex>年龄</th-ex>
@@ -22,6 +22,7 @@
     </table-ex>
     <div class="ctl-btn">
       <button @click="tableEnable=!tableEnable">切换表格禁用状态</button>
+      <button @click="showIndex=!showIndex">切换行号显示</button>
     </div>
   </div>
 </template>
@@ -44,7 +45,8 @@ export default {
         { id: null, age: null, like: null },
         { id: null, age: null, like: null }
       ],
-      tableEnable: true
+      tableEnable: true,
+      showIndex: true
     };
   },
   methods: {

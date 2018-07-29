@@ -20,7 +20,7 @@ export default {
   },
   data() {
     return {
-      showIndex: this.$parent.$parent.showIndex,
+      showIndex: true,
       indexValue: "",
       enable: false,
       tableEnable: false,
@@ -28,23 +28,26 @@ export default {
     };
   },
   mounted() {
-    this.$children.forEach(item =>
-      item.$on("selected", this.$emit("selected"))
-    );
     this.indexValue = this.$el.rowIndex;
-    this.tableEnable = this.$parent.$parent.enable;
-    this.$watch(
-      vm => vm.$parent.$parent.enable,
-      value => (this.tableEnable = value)
-    );
+
+    this.$nextTick(() => {
+      this.showIndex = this.$tableEx.showIndex;
+      this.$watch(
+        vm => vm.$tableEx.showIndex,
+        value => (this.showIndex = value)
+      );
+
+      this.tableEnable = this.$tableEx.enable;
+      this.$watch(
+        vm => vm.$tableEx.enable,
+        value => (this.tableEnable = value)
+      );
+    });
   },
   updated() {
     this.indexValue = this.$el.rowIndex;
   },
   methods: {
-    setShowIndex(value) {
-      this.showIndex = value;
-    },
     setEnable() {
       if (!this.tableEnable) {
         this.enable = false;
