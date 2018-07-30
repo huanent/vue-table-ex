@@ -1,5 +1,5 @@
 <template>
-  <td class="td-ex">
+  <td class="td-ex" ref="td">
     <input ref="input" v-model="value" @keydown="keydown" @focus="focus" @blur="blur" @input="input" :readonly='!edit||!enable' />
     <div class="drawdown-icon" v-if="enable&&showDrawdown" @mousedown="drawdownClick">
       <i />
@@ -35,11 +35,22 @@ export default {
       value: "",
       selectedItem: null,
       readonly: true,
-      enable: false
+      enable: false,
+      colIndex: null
     };
   },
   mounted() {
-    this.$watch(vm => vm.$parent.enable, value => (this.enable = value));
+    this.$nextTick(() => {
+      this.colIndex = this.$refs.td.cellIndex;
+      this.$watch(vm => vm.$parent.enable, value => (this.enable = value));
+
+      //自动选中第一个单元格
+      if (this.$parent.$parent.$parent.autoFocus&& this.$parent.rowIndex == 1 && this.colIndex == 1) {
+        this.$refs.input.focus();
+      }
+    });
+
+    //不是下拉则直接赋值，下拉则根据take选中值
     if (!this.list) {
       this.value = this.bindValue;
     } else {
@@ -49,7 +60,13 @@ export default {
       if (selectedItem) this.itemClick(selectedItem);
     }
   },
+  updated() {
+    this.colIndex = this.$refs.cellIndex;
+  },
   methods: {
+    setFocus(){
+      this.$refs.input.focus()
+    },
     drawdownClick() {
       this.showList = !this.showList;
       this.$nextTick(() => this.$refs.input.focus());
@@ -58,9 +75,6 @@ export default {
       this.$nextTick(() => {
         e.target.select();
       });
-    },
-    setFocus() {
-      this.$refs.input.focus();
     },
     blur() {
       if (!this.list) return;

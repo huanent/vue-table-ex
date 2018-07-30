@@ -15,21 +15,11 @@ export default {
       showIndex: true
     };
   },
-  created() {
-    let vm = this;
-    function inject(parent) {
-      parent.$children.forEach(f => {
-        f.$tfootEx = vm;
-        inject(f);
-      });
-    }
-    this.$nextTick(() => inject(vm));
-  },
   mounted() {
     this.$nextTick(() => {
-      this.showIndex = this.$tableEx.showIndex;
+      this.showIndex = this.$parent.showIndex;
       this.$watch(
-        vm => vm.$tableEx.showIndex,
+        vm => vm.$parent.showIndex,
         value => (this.showIndex = value)
       );
     });
