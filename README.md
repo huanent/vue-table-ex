@@ -25,7 +25,7 @@
         <td></td>
       </tfoot-ex>
 
-    </table-ex>
+ </table-ex>
 ```
 
 ## API （待添加）
