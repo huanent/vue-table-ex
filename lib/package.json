@@ -1,6 +1,6 @@
 {
   "name": "@huanent/table-ex",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "vue实现的增强型表格组件",
   "main": "teble-ex.common.js",
   "keywords": ["vue","table"],
