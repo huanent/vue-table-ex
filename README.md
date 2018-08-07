@@ -9,7 +9,19 @@
 - 行数据验证
 
 ## 基本使用
+使用下面命令安装npm包
+```
+npm i @huanent/table-ex
+```
+main.js文件
 
+```
+import tableEx from '@huanent/table-ex'
+import '@huanent/table-ex/teble-ex.css'
+
+Vue.use(tableEx)
+```
+vue文件中
 ```
  <table-ex>
 
