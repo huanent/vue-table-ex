@@ -1,5 +1,5 @@
 {
-  "name": "@huanent/table_ex",
+  "name": "@huanent/table-ex",
   "version": "0.1.0",
   "main":"./lib/teble-ex.common.js",
   "scripts": {
