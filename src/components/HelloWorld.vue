@@ -2,9 +2,9 @@
   <div>
     <table-ex class="table" auto-focus :enable='tableEnable' :show-index="showIndex">
       <thead-ex>
-        <th-ex>姓名</th-ex>
-        <th-ex>年龄</th-ex>
-        <th-ex>爱好</th-ex>
+        <th>姓名</th>
+        <th>年龄</th>
+        <th>爱好</th>
       </thead-ex>
       <tbody-ex>
         <tr-ex v-for="(item,index) in jsonData" :key="index" :valid="rowValid(item)" valid-tip>
