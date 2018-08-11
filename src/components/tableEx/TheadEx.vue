@@ -1,7 +1,7 @@
 <template>
   <thead class="thead-ex">
     <tr>
-      <th v-if="showIndex" class="order-col">行号</th>
+      <th v-if="tableEx.showIndex" class="order-col">行号</th>
       <slot></slot>
     </tr>
   </thead>
@@ -10,20 +10,9 @@
 <script>
 export default {
   name: "TheadEx",
-  data() {
-    return {
-      showIndex: true
-    };
+  inject:{
+    tableEx:"tableEx"
   },
-  mounted() {
-    this.$nextTick(() => {
-      this.showIndex = this.$parent.showIndex;
-      this.$watch(
-        vm => vm.$parent.showIndex,
-        value => (this.showIndex = value)
-      );
-    });
-  }
 };
 </script>
 

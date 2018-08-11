@@ -1,7 +1,7 @@
 <template>
   <td class="td-ex" ref="td">
-    <input ref="input" v-model="value" @keydown="keydown" @focus="focus" @blur="blur" @input="input" :readonly='!edit||!enable' />
-    <div class="drawdown-icon" v-if="enable&&showDrawdown" @mousedown="drawdownClick">
+    <input ref="input" v-model="value" @keydown="keydown" @focus="focus" @blur="blur" @input="input" :readonly='!edit||!trEx.enable||!tableEx.enable' />
+    <div class="drawdown-icon" v-if="trEx.enable&&showDrawdown&&tableEx.enable" @mousedown="drawdownClick">
       <i />
     </div>
     <ul v-if="showList">
@@ -17,6 +17,10 @@ export default {
   model: {
     prop: "bindValue",
     event: "update:bindValue"
+  },
+  inject: {
+    tableEx: "tableEx",
+    trEx: "trEx"
   },
   props: {
     bindValue: {
@@ -42,10 +46,13 @@ export default {
   mounted() {
     this.$nextTick(() => {
       this.colIndex = this.$refs.td.cellIndex;
-      this.$watch(vm => vm.$parent.enable, value => (this.enable = value));
 
       //自动选中第一个单元格
-      if (this.$parent.$parent.$parent.autoFocus&& this.$parent.rowIndex == 1 && this.colIndex == 1) {
+      if (
+        this.tableEx.autoFocus &&
+        this.$parent.rowIndex == 1 &&
+        this.colIndex == 1
+      ) {
         this.$refs.input.focus();
       }
     });
@@ -64,8 +71,8 @@ export default {
     this.colIndex = this.$refs.cellIndex;
   },
   methods: {
-    setFocus(){
-      this.$refs.input.focus()
+    setFocus() {
+      this.$refs.input.focus();
     },
     drawdownClick() {
       this.showList = !this.showList;
@@ -114,7 +121,7 @@ export default {
       });
     },
     keydown(e) {
-      if (!this.enable) return;
+      if (!this.trEx.enable||!this.tableEx.enable) return;
       switch (e.keyCode) {
         case 13: //回车
           if (!this.list) return;

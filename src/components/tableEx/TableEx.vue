@@ -14,6 +14,11 @@ export default {
       default: true
     },
     enable: Boolean
+  },
+  provide(){
+    return{
+      tableEx:this
+    }
   }
 };
 </script>
