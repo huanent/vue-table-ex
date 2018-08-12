@@ -6,6 +6,16 @@
 
 <script>
 export default {
-  name: "TbodyEx"
+  name: "TbodyEx",
+  data(){
+    return{
+      trList:[]
+    }
+  },
+  provide(){
+    return{
+      tbodyEx:this
+    }
+  }
  };
 </script>

@@ -12,12 +12,13 @@
 export default {
   name: "TrEx",
   inject: {
-    tableEx: "tableEx"
+    tableEx: "tableEx",
+    tbodyEx: "tbodyEx"
   },
-  provide(){
+  provide() {
     return {
-      trEx:this
-    }
+      trEx: this
+    };
   },
   props: {
     valid: {
@@ -29,11 +30,16 @@ export default {
   data() {
     return {
       rowIndex: null,
-      enable:true
+      enable: true,
+      tdList:[]
     };
   },
   mounted() {
     this.rowIndex = this.$el.rowIndex;
+    this.tbodyEx.trList.push(this)
+  },
+  beforeDestroy(){
+    this.tbodyEx.trList=this.tbodyEx.trList.filter(f=>f!==this)
   },
   updated() {
     this.rowIndex = this.$el.rowIndex;

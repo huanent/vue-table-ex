@@ -20,6 +20,7 @@ export default {
   },
   inject: {
     tableEx: "tableEx",
+    tbodyEx: "tbodyEx",
     trEx: "trEx"
   },
   props: {
@@ -44,13 +45,14 @@ export default {
     };
   },
   mounted() {
-    this.$nextTick(() => {
-      this.colIndex = this.$refs.td.cellIndex;
+    this.colIndex = this.$refs.td.cellIndex;
+    this.trEx.tdList.push(this);
 
+    this.$nextTick(() => {
       //自动选中第一个单元格
       if (
         this.tableEx.autoFocus &&
-        this.$parent.rowIndex == 1 &&
+        this.trEx.rowIndex == 1 &&
         this.colIndex == 1
       ) {
         this.$refs.input.focus();
@@ -66,6 +68,9 @@ export default {
       );
       if (selectedItem) this.itemClick(selectedItem);
     }
+  },
+  beforeDestroy() {
+    this.trEx.tdList = this.trEx.tdList.filter(f => f !== this);
   },
   updated() {
     this.colIndex = this.$refs.cellIndex;
@@ -121,7 +126,7 @@ export default {
       });
     },
     keydown(e) {
-      if (!this.trEx.enable||!this.tableEx.enable) return;
+      if (!this.trEx.enable || !this.tableEx.enable) return;
       switch (e.keyCode) {
         case 13: //回车
           if (!this.list) return;
@@ -135,13 +140,10 @@ export default {
             this.arrowDownKeydown();
             this.scrollIntoView();
           } else {
-            var items = this.$parent.$children;
-            let index = items.indexOf(this);
-            var rows = this.$parent.$parent.$children;
-            var rowIndex = rows.indexOf(this.$parent);
-            if (rowIndex == rows.length - 1) return;
-            if (rows[rowIndex + 1].enable)
-              rows[rowIndex + 1].$children[index].setFocus();
+            let rowIndex = this.tbodyEx.trList.indexOf(this.trEx);
+            if (rowIndex == this.tbodyEx.trList.length - 1) return;
+            let colIndex = this.trEx.tdList.indexOf(this);
+            this.tbodyEx.trList[rowIndex + 1].tdList[colIndex].setFocus();
           }
           break;
         case 38: //上
@@ -149,13 +151,10 @@ export default {
             this.arrowUpKeydown();
             this.scrollIntoView();
           } else {
-            var items = this.$parent.$children;
-            let index = items.indexOf(this);
-            var rows = this.$parent.$parent.$children;
-            var rowIndex = rows.indexOf(this.$parent);
+            let rowIndex = this.tbodyEx.trList.indexOf(this.trEx);
             if (rowIndex == 0) return;
-            if (rows[rowIndex - 1].enable)
-              rows[rowIndex - 1].$children[index].setFocus();
+            let colIndex = this.trEx.tdList.indexOf(this);
+            this.tbodyEx.trList[rowIndex - 1].tdList[colIndex].setFocus();
           }
           break;
         case 37: //左
@@ -189,16 +188,14 @@ export default {
       this.selectedItem = this.searchList[index];
     },
     arrowLeftKeydown() {
-      var items = this.$parent.$children;
-      let index = items.indexOf(this);
+      let index = this.trEx.tdList.indexOf(this);
       if (index == 0) return;
-      items[index - 1].setFocus();
+      this.trEx.tdList[index - 1].setFocus();
     },
     arrowRightKeydown() {
-      var items = this.$parent.$children;
-      let index = items.indexOf(this);
-      if (index == items.length - 1) return;
-      items[index + 1].setFocus();
+      let index = this.trEx.tdList.indexOf(this);
+      if (index == this.trEx.tdList.length - 1) return;
+      this.trEx.tdList[index + 1].setFocus();
     },
     scrollIntoView() {
       if (!this.list) return;
