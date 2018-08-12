@@ -30,7 +30,6 @@ export default {
   data() {
     return {
       rowIndex: null,
-      enable: true,
       tdList:[]
     };
   },

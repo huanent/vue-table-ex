@@ -1,7 +1,7 @@
 <template>
   <td class="td-ex" ref="td">
-    <input ref="input" v-model="value" @keydown="keydown" @focus="focus" @blur="blur" @input="input" :readonly='!edit||!trEx.enable||!tableEx.enable' />
-    <div class="drawdown-icon" v-if="trEx.enable&&showDrawdown&&tableEx.enable" @mousedown="drawdownClick">
+    <input ref="input" v-model="value" @keydown="keydown" @focus="focus" @blur="blur" @input="input" :readonly='!edit||!tableEx.enable||!enable' />
+    <div class="drawdown-icon" v-if="showDrawdown&&tableEx.enable&&enable" @mousedown="drawdownClick">
       <i />
     </div>
     <ul v-if="showList">
@@ -40,7 +40,6 @@ export default {
       value: "",
       selectedItem: null,
       readonly: true,
-      enable: false,
       colIndex: null
     };
   },
@@ -214,6 +213,13 @@ export default {
       return this.list.filter(
         f => this.displayValue(f).indexOf(this.value) != -1
       );
+    },
+    enable() {
+      let index = this.tbodyEx.trList.indexOf(this.trEx);
+      if (index == 0) return true;
+      let tr = this.tbodyEx.trList[index - 1];
+      if (tr) return tr.valid;
+      return false;
     }
   },
   watch: {
