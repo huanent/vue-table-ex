@@ -4,7 +4,6 @@ import TbodyEx from './TbodyEx.vue'
 import TheadEx from './TheadEx.vue'
 import TableEx from './TableEx.vue'
 import TfootEx from './TfootEx.vue'
-import './table-ex.css'
 
 export default {
     install(Vue) {

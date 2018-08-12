@@ -234,3 +234,73 @@ export default {
   }
 };
 </script>
+<style>
+.td-ex input {
+    display: block;
+    border: 0;
+    margin: 0;
+    padding: 0 10px;
+    width: auto;
+    height: 100%;
+    outline: 0;
+}
+
+.td-ex input:read-only {
+    cursor: not-allowed;
+}
+
+.td-ex input:focus {
+    background-color: rgb(255, 255, 234);
+}
+
+.drawdown-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.drawdown-icon i {
+    width: 10px;
+    height: 10px;
+    display: block;
+    border-left: 1px #ccc solid;
+    border-bottom: 1px #ccc solid;
+    transform: rotate(-45deg);
+    margin-bottom: 5px;
+}
+
+.td-ex ul {
+    list-style-type: none;
+    position: absolute;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    outline: 1px solid #ddd;
+    overflow-y: auto;
+    max-height: 180px;
+    z-index: 1000;
+}
+
+.td-ex ul li {
+    height: 32px;
+    padding: 0 10px;
+    margin: 0;
+    line-height: 32px;
+    cursor: pointer;
+}
+
+.td-ex ul li:hover {
+    background-color: #ddd;
+}
+
+.td-ex ul li.selected {
+    background-color: #09c;
+    color: #fff;
+}
+</style>

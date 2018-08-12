@@ -10,3 +10,8 @@ export default {
   name: "TfootEx",
 };
 </script>
+<style>
+.tfoot-ex td {
+    text-align: center
+}
+</style>

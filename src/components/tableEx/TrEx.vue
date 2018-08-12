@@ -46,3 +46,25 @@ export default {
   methods: {}
 };
 </script>
+<style>
+
+.order-col {
+    text-align: center;
+    min-width: 70px;
+    position: relative;
+}
+
+.order-col i {
+    display: block;
+    width: 6px;
+    height: 10px;
+    border-bottom: 1px solid red;
+    border-right: 1px solid red;
+    position: absolute;
+    top: -2px;
+    bottom: 0;
+    margin: auto;
+    right: 10px;
+    transform: rotate(45deg);
+}
+</style>
