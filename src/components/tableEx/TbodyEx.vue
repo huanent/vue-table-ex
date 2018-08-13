@@ -7,15 +7,28 @@
 <script>
 export default {
   name: "TbodyEx",
-  data(){
-    return{
-      trList:[]
-    }
+  inject: {
+    tableEx: "tableEx"
   },
-  provide(){
-    return{
-      tbodyEx:this
+  data() {
+    return {
+      trList: [],
+      autoFocus: Boolean,
+      selectedRow: null
+    };
+  },
+  provide() {
+    return {
+      tbodyEx: this
+    };
+  },
+  mounted() {
+    this.tableEx.tbodyEx = this;
+  },
+  computed: {
+    selectedRowIndex() {
+      return this.trList.indexOf(this.selectedRow);
     }
   }
- };
+};
 </script>

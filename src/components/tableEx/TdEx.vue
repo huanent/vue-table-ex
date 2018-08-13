@@ -50,7 +50,7 @@ export default {
     this.$nextTick(() => {
       //自动选中第一个单元格
       if (
-        this.tableEx.autoFocus &&
+        this.tbodyEx.autoFocus &&
         this.trEx.rowIndex == 1 &&
         this.colIndex == 1
       ) {
@@ -85,6 +85,7 @@ export default {
     focus(e) {
       this.$nextTick(() => {
         e.target.select();
+        this.tbodyEx.selectedRow = this.trEx;
       });
     },
     blur() {
@@ -125,13 +126,6 @@ export default {
       });
     },
     keydown(e) {
-      if (
-        !this.enable ||
-        !this.tableEx.enable ||
-        (!this.trEx.valid && e.keyCode == 40)
-      )
-        return;
-
       switch (e.keyCode) {
         case 13: //回车
           if (!this.list) return;
@@ -141,7 +135,7 @@ export default {
           this.showList = false;
           break;
         case 40: //下
-          if (this.list) {
+          if (this.list && this.enable) {
             this.arrowDownKeydown();
             this.scrollIntoView();
           } else {
@@ -152,7 +146,7 @@ export default {
           }
           break;
         case 38: //上
-          if (this.list) {
+          if (this.list && this.enable) {
             this.arrowUpKeydown();
             this.scrollIntoView();
           } else {
@@ -224,7 +218,7 @@ export default {
       let index = this.tbodyEx.trList.indexOf(this.trEx);
       if (index == 0) return true;
       let tr = this.tbodyEx.trList[index - 1];
-      if (tr) return tr.valid;
+      if (tr) return tr.valid && tr.tdList[0].enable;
       return false;
     }
   },
@@ -236,6 +230,13 @@ export default {
     },
     bindValue(value) {
       if (!this.list) this.value = value;
+      else {
+        if (!value) this.value = "";
+        else {
+          let selectedItem = this.list.find(f => value == this.takeValue(f));
+          this.value = this.displayValue(selectedItem);
+        }
+      }
     }
   }
 };

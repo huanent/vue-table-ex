@@ -8,33 +8,41 @@
 export default {
   name: "TableEx",
   props: {
-    autoFocus: Boolean,
     showIndex: {
       type: Boolean,
       default: true
     },
     enable: Boolean
   },
-  provide(){
-    return{
-      tableEx:this
+  provide() {
+    return {
+      tableEx: this
+    };
+  },
+  data() {
+    return {
+      tbodyEx: null
+    };
+  },
+  watch: {
+    selectedRowIndex(value) {
+      this.$emit("selectedRowIndexChange", value);
     }
   }
 };
 </script>
 <style>
 .table-ex {
-    border-spacing: 0;
-    outline: 1px solid #ccc;
+  border-collapse: collapse; /*关键代码*/
 }
 
 .table-ex td {
-    position: relative;
-    outline: 1px solid #ddd;
-    padding: 0 0;
-    margin: 0;
-    height: 32px;
-    background-color: white;
+  position: relative;
+  border: 1px solid #ddd;
+  padding: 0 0;
+  margin: 0;
+  height: 32px;
+  background-color: white;
 }
 </style>
 

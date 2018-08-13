@@ -1,20 +1,26 @@
 <template>
   <div>
-    <table-ex class="table" auto-focus :enable='tableEnable' :show-index="showIndex">
+    <table-ex class="table" :enable='tableEnable' :show-index="showIndex">
       <thead-ex>
-        <th>姓名</th>
-        <th>年龄</th>
-        <th>爱好</th>
+        <tr>
+          <th v-if="showIndex" rowspan="2">行号</th>
+          <th colspan="3">基本信息</th>
+        </tr>
+        <tr>
+          <th>姓名</th>
+          <th>年龄</th>
+          <th>爱好</th>
+        </tr>
       </thead-ex>
-      <tbody-ex>
+      <tbody-ex auto-focus>
         <tr-ex v-for="(item,index) in jsonData" :key="index" :valid="rowValid(item)" valid-tip>
           <td-ex v-model="item.id" :list="list" display="name" take='id' edit @change="onChange(item,$event)"></td-ex>
           <td-ex v-model="item.age"></td-ex>
           <td-ex v-model="item.like" edit></td-ex>
         </tr-ex>
       </tbody-ex>
-      <tfoot-ex>
-        <td>合计</td>
+      <tfoot-ex :show="true" @addRow="addRow" @delRow="delRow">
+        <td v-if="showIndex">合计</td>
         <td></td>
         <td>{{totalAge}}</td>
         <td></td>
@@ -50,6 +56,12 @@ export default {
     };
   },
   methods: {
+    addRow() {
+      this.jsonData.push({ id: null, age: null, like: null });
+    },
+    delRow(e) {
+      this.jsonData = this.jsonData.filter(f => this.jsonData.indexOf(f) != e);
+    },
     onChange(row, e) {
       if (!e) {
         row.age = null;
