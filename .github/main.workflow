@@ -1,15 +1,22 @@
 workflow "New workflow" {
   on = "push"
-  resolves = ["pack"]
+  resolves = ["publish"]
 }
 
 action "install" {
   uses = "actions/npm@c555744"
-  runs = "npm i"
+  args = "npm i"
 }
 
 action "pack" {
   uses = "actions/npm@c555744"
   needs = ["install"]
-  runs = "npm run pack"
+  args = "npm run pack"
+}
+
+action "publish" {
+  uses = "actions/npm@c555744"
+  needs = ["pack"]
+  secrets = ["npm_token"]
+  args = "publish --access public"
 }
